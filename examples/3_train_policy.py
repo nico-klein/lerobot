@@ -20,6 +20,8 @@ examples/2_evaluate_pretrained_policy.py
 
 from pathlib import Path
 
+import platform
+
 import torch
 
 from lerobot.common.datasets.lerobot_dataset import LeRobotDataset, LeRobotDatasetMetadata
@@ -35,7 +37,19 @@ def main():
     output_directory.mkdir(parents=True, exist_ok=True)
 
     # # Select your device
-    device = torch.device("cuda")
+    if platform.system() == "Darwin":
+        if platform.machine() == "x86_64":
+            print("Intel Mac")
+            device = torch.device("mps")
+        else:
+            print("Arm Mac")
+            device = torch.device("mps")
+    elif platform.system() == "Linux":
+        print("Linux")
+        device = torch.device("cuda")
+    else:
+        print("unknown OS")
+        device = torch.device("cuda")
 
     # Number of offline training steps (we'll only do offline training for this example.)
     # Adjust as you prefer. 5000 steps are needed to get something worth evaluating.

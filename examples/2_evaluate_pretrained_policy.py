@@ -23,6 +23,7 @@ pip install -e ".[pusht]"
 """
 
 from pathlib import Path
+import platform
 
 import gym_pusht  # noqa: F401
 import gymnasium as gym
@@ -37,8 +38,19 @@ output_directory = Path("outputs/eval/example_pusht_diffusion")
 output_directory.mkdir(parents=True, exist_ok=True)
 
 # Select your device
-#device = "cuda"
-device = "mps"
+if platform.system() == "Darwin":
+    if platform.machine() == "x86_64":
+        print("Intel Mac")
+        device = torch.device("mps")
+    else:
+        print("Arm Mac")
+        device = torch.device("mps")
+elif platform.system() == "Linux":
+    print("Linux")
+    device = torch.device("cuda")
+else:
+    print("unknown OS")
+    device = torch.device("cuda")
 
 
 # Provide the [hugging face repo id](https://huggingface.co/lerobot/diffusion_pusht):
@@ -136,6 +148,6 @@ fps = env.metadata["render_fps"]
 
 # Encode all frames into a mp4 video.
 video_path = output_directory / "rollout.mp4"
-imageio.mimsave(str(video_path), numpy.stack(frames), fps=fps)
+imageio.mimsave(str(video_path), numpy.stack(frames), fps=fps, macro_block_size=1)
 
 print(f"Video of the evaluation is available in '{video_path}'.")
