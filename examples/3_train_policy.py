@@ -47,6 +47,7 @@ def main():
     elif platform.system() == "Linux" or platform.system() == "Windows":
         print(platform.system())
         if torch.cuda.is_available():
+            print("GPU available")
             device = torch.device("cuda")
         else:
             print("No GPU available, using CPU")
