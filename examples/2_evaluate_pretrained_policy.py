@@ -45,12 +45,16 @@ if platform.system() == "Darwin":
     else:
         print("Arm Mac")
         device = torch.device("mps")
-elif platform.system() == "Linux":
-    print("Linux")
-    device = torch.device("cuda")
+elif platform.system() == "Linux" or platform.system() == "Windows":
+    print(platform.system())
+    if torch.cuda.is_available():
+        device = torch.device("cuda")
+    else :
+        print("No GPU available, using CPU")
+        device = torch.device("cpu")
 else:
     print("unknown OS")
-    device = torch.device("cuda")
+    device = torch.device("cpu")
 
 
 # Provide the [hugging face repo id](https://huggingface.co/lerobot/diffusion_pusht):
