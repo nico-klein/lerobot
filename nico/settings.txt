@@ -1,0 +1,15 @@
+# follower
+python lerobot/scripts/configure_motor.py \
+  --port /dev/tty.usbmodem59700725751 \
+  --brand feetech \
+  --model sts3215 \
+  --baudrate 1000000 \
+  --ID 1...
+
+# leader
+  python lerobot/scripts/configure_motor.py \
+  --port /dev/tty.usbmodem59710813471\
+  --brand feetech \
+  --model sts3215 \
+  --baudrate 1000000 \
+  --ID 1...
