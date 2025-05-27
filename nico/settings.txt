@@ -13,3 +13,13 @@ python lerobot/scripts/configure_motor.py \
   --model sts3215 \
   --baudrate 1000000 \
   --ID 1...
+
+
+
+# realsense linux
+pip install pyrealsense2
+sudo apt-get install  libgtk2.0-dev
+sudo apt-get install  pkg-config
+pip uninstall opencv-python
+pip install opencv-python-headless
+pip install opencv-python
