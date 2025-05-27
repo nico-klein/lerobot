@@ -225,6 +225,7 @@ def calibrate(robot: Robot, cfg: CalibrateControlConfig):
 
     # Calling `connect` automatically runs calibration
     # when the calibration file is missing
+    print(f"robot type {robot.robot_type}")
     robot.connect()
     robot.disconnect()
     print("Calibration is done! You can now teleoperate and record datasets!")
