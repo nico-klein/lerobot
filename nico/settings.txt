@@ -27,6 +27,12 @@ python lerobot/scripts/control_robot.py \
   --control.arms='["main_follower"]'
 
 
+# teleoperate
+python lerobot/scripts/control_robot.py \
+  --robot.type=so101 \
+  --robot.cameras='{}' \
+  --control.type=teleoperate
+
 
 
 # realsense linux
