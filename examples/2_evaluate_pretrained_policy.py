@@ -37,26 +37,23 @@ from lerobot.common.policies.diffusion.modeling_diffusion import DiffusionPolicy
 output_directory = Path("outputs/eval/example_pusht_diffusion")
 output_directory.mkdir(parents=True, exist_ok=True)
 
-# Select your device
-if platform.system() == "Darwin":
-    if platform.machine() == "x86_64":
-        print("Intel Mac")
-        device = torch.device("mps")
-    else:
-        print("Arm Mac")
-        device = torch.device("mps")
-elif platform.system() == "Linux" or platform.system() == "Windows":
-    print(platform.system())
-    if torch.cuda.is_available():
-        print("GPU available")
-        device = torch.device("cuda")
-    else :
-        print("No GPU available, using CPU")
-        device = torch.device("cpu")
-else:
-    print("unknown OS")
-    device = torch.device("cpu")
 
+# Select your device
+print('system', platform.system())
+print('machine', platform.machine())
+print('cuda:', torch.cuda.is_available())
+print('mps', torch.backends.mps.is_available())
+
+if torch.cuda.is_available():
+    print("GPU available, using GPU")
+    device = torch.device("cuda")
+
+elif torch.backends.mps.is_available():
+    print("MPS available, using MPS")
+    device = torch.device("mps")
+else:
+    print("No GPU available, using CPU")
+    device = torch.device("cpu")
 
 # Provide the [hugging face repo id](https://huggingface.co/lerobot/diffusion_pusht):
 pretrained_policy_path = "lerobot/diffusion_pusht"
