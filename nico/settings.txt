@@ -2,6 +2,9 @@
 # python -m ipykernel install --user --name=lerobot
 # jupyter kernelspec list
 
+brew install ffmpeg
+ggf. export DYLD_LIBRARY_PATH=/opt/homebrew/lib:$DYLD_LIBRARY_PATH
+
 
 # follower
 python lerobot/scripts/configure_motor.py \
