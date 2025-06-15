@@ -1,0 +1,44 @@
+
+# python -m ipykernel install --user --name=lerobot --display-name=lerobot
+# jupyter kernelspec list
+# jupyter kernelspec uninstall ...
+
+
+# follower
+python lerobot/scripts/configure_motor.py \
+  --port /dev/tty.usbmodem59700725751 \
+  --brand feetech \
+  --model sts3215 \
+  --baudrate 1000000 \
+  --ID 1...
+
+# leader
+  python lerobot/scripts/configure_motor.py \
+  --port /dev/tty.usbmodem59710813471\
+  --brand feetech \
+  --model sts3215 \
+  --baudrate 1000000 \
+  --ID 1...
+
+!!! nochmal pip install -e . machen, damit die Änderungen in die site-packages gehen
+
+python -m lerobot.calibrate \
+    --robot.type=so101_follower \
+    --robot.port=/dev/tty.usbmodem58760431551 \ # <- The port of your robot
+    --robot.id=my_awesome_follower_arm # <- Give the robot a unique name
+
+python -m lerobot.calibrate \
+    --teleop.type=so101_leader \
+    --teleop.port=/dev/tty.usbmodem58760431551 \ # <- The port of your robot
+    --teleop.id=my_awesome_leader_arm # <- Give the robot a unique name
+
+
+
+# realsense linux
+pip install pyrealsense2
+sudo apt-get install  libgtk2.0-dev
+sudo apt-get install  pkg-config
+pip uninstall opencv-python
+pip install opencv-python-headless
+pip install opencv-python
+
